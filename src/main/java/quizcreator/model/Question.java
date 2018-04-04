@@ -1,7 +1,6 @@
 package quizcreator.model;
 
 import javax.persistence.*;
-import java.util.HashMap;
 
 @Entity
 @Table(name="questions")
@@ -11,11 +10,27 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private HashMap<String, String> questionAndAnswer; //???????
+    private String question;
 
+    private String answer;
+
+    @Enumerated(EnumType.STRING)
     private QuestionType type;
 
     private int lineNumber;
 
-    private long quizId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "quiz_id")
+    private Quiz quiz;
+
+    public Question() {
+    }
+
+    public Question(String question, String answer, QuestionType type, int lineNumber, Quiz quiz) {
+        this.question = question;
+        this.answer = answer;
+        this.type = type;
+        this.lineNumber = lineNumber;
+        this.quiz = quiz;
+    }
 }
