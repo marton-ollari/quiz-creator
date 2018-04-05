@@ -26,6 +26,9 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Quiz> quizzes;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Answer> answers;
+
     public User() {
     }
 
@@ -33,5 +36,13 @@ public class User {
         this.name = name;
         this.password = password;
         this.email = email;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
