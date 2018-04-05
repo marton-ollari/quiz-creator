@@ -20,6 +20,9 @@ public class Quiz {
     @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY)
     private List<Question> questions;
 
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY)
+    private List<Answer> answers;
+
     public Quiz() {
     }
 
