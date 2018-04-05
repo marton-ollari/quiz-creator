@@ -25,7 +25,7 @@ public class UserService {
     }
 
     public void saveUser(String name, String password, String email) {
-        User user = new User(name, password, email);
+        User user = new User(name, hashPassword(password), email);
         userRepository.save(user);
     }
 
@@ -54,7 +54,7 @@ public class UserService {
         return BCrypt.hashpw(password_plaintext, salt);
     }
 
-    private boolean checkPassword(String password_plaintext, String stored_hash) {
+    public boolean checkPassword(String password_plaintext, String stored_hash) {
         boolean password_verified = false;
 
         if (null == stored_hash || !stored_hash.startsWith("$2a$"))

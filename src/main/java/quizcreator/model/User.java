@@ -45,4 +45,12 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 }
