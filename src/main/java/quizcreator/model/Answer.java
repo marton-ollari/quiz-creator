@@ -21,7 +21,10 @@ public class Answer {
 
     private String answer;
 
-
-
-
+    public Answer(User user, Quiz quiz, int lineNumber, String answer) {
+        this.user = user;
+        this.quiz = quiz;
+        this.lineNumber = lineNumber;
+        this.answer = answer;
+    }
 }
