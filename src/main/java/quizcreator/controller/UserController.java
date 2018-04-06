@@ -1,5 +1,6 @@
 package quizcreator.controller;
 
+import com.google.gson.Gson;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,5 +47,15 @@ public class UserController {
     public String logout(HttpSession session){
         session.invalidate();
         return "redirect:/";
+    }
+
+    @RequestMapping(value="/islogged", method = RequestMethod.GET)
+    public String isLogged(HttpSession session){
+        Gson gson = new Gson();
+        if(session.getAttribute("name") != null){
+            return gson.toJson("true");
+        } else {
+            return gson.toJson("false");
+        }
     }
 }

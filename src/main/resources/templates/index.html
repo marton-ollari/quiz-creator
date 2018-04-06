@@ -22,12 +22,12 @@
     <div class="w3-bar w3-light-grey w3-round w3-display-bottommiddle w3-hide-small" style="bottom:-16px">
         <button type="button" class="btn btn-danger home-button">Home</button>
 
-        <button type="button" th:if="${userName}" class="btn btn-danger create-quiz-button">Create a Quiz!</button>
-        <button type="button" th:if="${userName}" class="btn btn-danger play-button">Play!</button>
-        <a href="/logout" th:if="${userName}" class="button btn btn-danger" id="logout-button">Logout</a>
+        <button type="button" class="btn btn-danger create-quiz-button hidden">Create a Quiz!</button>
+        <button type="button" class="btn btn-danger play-button hidden">Play!</button>
+        <button type="button" class="btn btn-danger logout-button hidden">Logout</button>
 
-        <button type="button" th:unless="${userName}" class="btn btn-danger login-modal-button" data-toggle="modal" data-target="#login-modal">Login</button>
-        <button type="button" th:unless="${userName}" class="btn btn-danger  register-modal-button" data-toggle="modal" data-target="#register-modal">Register</button>
+        <button type="button" class="btn btn-danger login-modal-button hidden" data-toggle="modal" data-target="#login-modal">Login</button>
+        <button type="button" class="btn btn-danger  register-modal-button hidden" data-toggle="modal" data-target="#register-modal">Register</button>
     </div>
 </header>
 
