@@ -18,7 +18,7 @@ function addEventListeners() {
 
 function createQuizEventListener() {
     document.getElementsByClassName("create-quiz-button")[0].addEventListener("click", function () {
-        document.getElementsByClassName("question-dropdown")[0].innerHTML = "<select id=\"list\">\n" +
+        document.getElementsByClassName("question-dropdown")[0].innerHTML = "<select id=\"list\" class=\"btn btn-warning \">\n" +
             "    <option value=\"QA\">Question - Answer</option>\n" +
             "    <option value=\"CTP\">Connect to Pictures</option>\n" +
             "    <option value=\"AN\">Anagram</option>\n" +
@@ -32,6 +32,7 @@ function createQuizEventListener() {
 function dropdownEventListeners() {
     var e = document.getElementById("list");
     document.getElementsByClassName("question-form")[0].innerHTML = questionform[e.options[e.selectedIndex].value]
+
 }
 
 
