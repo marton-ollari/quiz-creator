@@ -38,5 +38,6 @@ public class QuizController {
         User user = userService.getUserById((Long) session.getAttribute("id"));
         Quiz quiz = new Quiz(req.getParameter("quizname"), user);
         quizService.saveQuiz(quiz);
+        session.setAttribute("quizId", quiz.getId());
     }
 }

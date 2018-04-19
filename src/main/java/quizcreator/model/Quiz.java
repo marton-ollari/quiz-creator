@@ -31,4 +31,7 @@ public class Quiz {
         this.user = user;
     }
 
+    public long getId() {
+        return id;
+    }
 }
