@@ -17,18 +17,21 @@ function addEventListeners() {
 }
 
 function createQuizEventListener() {
-    document.getElementsByClassName("save-quiz-button")[0].addEventListener("click", function () {
-        var quizName = document.getElementsByClassName("quiz-name")[0].value;
-        document.getElementsByClassName("question-dropdown")[0].innerHTML = "<h2>"+  quizName +"</h2><select id=\"list\" class=\"btn btn-warning \">\n" +
-            "    <option value=\"QA\">Question - Answer</option>\n" +
-            "    <option value=\"CTP\">Connect to Pictures</option>\n" +
-            "    <option value=\"AN\">Anagram</option>\n" +
-            "    <option value=\"AC\">Association Circle</option>\n" +
-            "</select>"
-        //save quiz to db
-        $.post( "/save-quiz", { quizname : quizName } );
-        document.getElementById("list").addEventListener("click", dropdownEventListeners );
-    });
+
+        document.getElementsByClassName("save-quiz-button")[0].addEventListener("click", function () {
+            var quizName = document.getElementsByClassName("quiz-name")[0].value;
+            if(document.getElementsByClassName("quiz-name")[0].value !== "") {
+                document.getElementsByClassName("question-dropdown")[0].innerHTML = "<h2>" + quizName + "</h2><select id=\"list\" class=\"btn btn-warning \">\n" +
+                    "    <option value=\"QA\">Question - Answer</option>\n" +
+                    "    <option value=\"CTP\">Connect to Pictures</option>\n" +
+                    "    <option value=\"AN\">Anagram</option>\n" +
+                    "    <option value=\"AC\">Association Circle</option>\n" +
+                    "</select>"
+                //save quiz to db
+                $.post("/save-quiz", {quizname: quizName});
+                document.getElementById("list").addEventListener("click", dropdownEventListeners);
+            }
+        });
 }
 
 function dropdownEventListeners() {

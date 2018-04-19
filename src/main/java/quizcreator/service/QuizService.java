@@ -27,5 +27,9 @@ public class QuizService {
         return quizRepository.findByName(name);
     }
 
+    public Quiz getQuizByNameAndUserId(String name, User user){
+        return quizRepository.findByNameAndUser(name, user);
+    }
+
 
 }

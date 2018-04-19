@@ -4,14 +4,14 @@ var questionform = {
     "    Answer: <input type=\"text\" name=\"answer\"><br>\n<br><br>",
 
 
-    "CTP" : "connectToPictures",
+    "CTP" : "<h4>Connect To Pictures - Coming soon</h4>",
 
 
-    "AN" : "anagram",
+    "AN" : "<h4>Anagram - Coming soon</h4>",
 
 
-    "AC": "oneFromNine",
+    "AC": "<h4>Association Circle - Coming soon</h4>",
 
 
-    "SQ": "speedQuestion"
+    "SQ": "<h4>Speed Question - Coming soon</h4>"
 };
