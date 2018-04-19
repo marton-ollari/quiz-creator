@@ -26,6 +26,7 @@ function createQuizEventListener() {
             "    <option value=\"AC\">Association Circle</option>\n" +
             "</select>"
         //save quiz to db
+        $.post( "/save-quiz", { quizname : quizName } );
         document.getElementById("list").addEventListener("click", dropdownEventListeners );
     });
 }
