@@ -24,7 +24,7 @@
     <div class="w3-bar w3-light-grey w3-round w3-display-bottommiddle w3-hide-small" style="bottom:-16px">
         <button type="button" class="btn btn-danger home-button">Home</button>
 
-        <button type="button" class="btn btn-danger create-quiz-button hidden">Create a Quiz!</button>
+        <button type="button" class="btn btn-danger create-quiz-button hidden" data-toggle="modal" data-target="#quiz-modal">Create a Quiz!</button>
         <button type="button" class="btn btn-danger play-button hidden">Play!</button>
         <a href="/logout">
             <button type="submit" class="btn btn-danger logout-button hidden">Logout</button>
@@ -42,7 +42,10 @@
 <br/>
 <div class="question-form w3-center"></div>
 
-
+<div th:if="${error}" class="w3-center">
+    <br/>
+    <h4  th:text="${error}">Error message</h4>
+</div>
 
 
 <!-- Modals -->
@@ -72,9 +75,16 @@
         </div>
     </div>
 </div>
-<div th:if="${error}" class="w3-center">
-    <br/>
-    <h4  th:text="${error}">Error message</h4>
+
+<div class="modal fade" id="quiz-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="loginmodal-container">
+            <h1>Name your quiz</h1><br/>
+                <input type="text" name="quiz-name" class="quiz-name" placeholder="Quiz name" th:required="required"/>
+                <input type="submit" name="login" class="login loginmodal-submit save-quiz-button" data-dismiss="modal" value="Create quiz"/>
+        </div>
+    </div>
 </div>
+
 </body>
 </html>
