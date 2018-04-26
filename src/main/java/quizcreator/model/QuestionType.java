@@ -1,10 +1,10 @@
 package quizcreator.model;
 
 public enum QuestionType {
-    QUESTION_ANSWER,
+    SIMPLE,
     CONNECT_TO_PICTURES,
     ANAGRAM,
-    ONE_FROM_NINE,
+    ASSOCIATION_CIRCLE,
     SPEED_QUESTION
 
 }
