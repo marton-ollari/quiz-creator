@@ -53,7 +53,7 @@ function rightArrowEventListener() {
             saveQuestions("association_circle", 10);
             break;
     }
-    //clear form
+    document.getElementsByClassName("question-form")[0].innerHTML = "Question saved";
 }
 
 

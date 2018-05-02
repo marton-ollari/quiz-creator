@@ -13,6 +13,8 @@ public class Quiz {
 
     private String name;
 
+    private int questionNumber = 50;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
@@ -33,5 +35,13 @@ public class Quiz {
 
     public long getId() {
         return id;
+    }
+
+    public int getQuestionNumber() {
+        return questionNumber;
+    }
+
+    public void decreaseQuestionNumber() {
+        this.questionNumber -= 1;
     }
 }

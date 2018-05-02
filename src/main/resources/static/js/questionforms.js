@@ -29,6 +29,7 @@ function createQuestionForms(name, number) {
 function saveQuestions(name, number) {
     var json = {};
     json["type"] = name;
+    json["number"] = number;
     for (var i=0; i<number; i++){
         var question = document.getElementsByName(name+(i+1)+"question")[0].value;
         var answer = document.getElementsByName(name+(i+1)+"answer")[0].value;

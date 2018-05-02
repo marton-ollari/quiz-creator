@@ -28,12 +28,15 @@ public class QuestionController {
     public void saveQuestion(HttpSession session, HttpServletRequest req){
         QuestionType questionType = QuestionType.valueOf(req.getParameter("type").toUpperCase());
         Quiz quiz = quizService.getQuizById((long)session.getAttribute("quizId"));
-        //TODO for loop to multiple questions
-        //TODO line number is missing
-        String question = req.getParameter("question1");
-        String answer = req.getParameter("answer1");
-        questionService.saveQuestion(new Question(question, answer, questionType, 1, quiz));
-
+        int questionNumber = Integer.parseInt(req.getParameter("number"));
+        for (int i=1; i <= questionNumber; i++){
+            System.out.println(quiz.getQuestionNumber());
+            int lineNumber = 51-quiz.getQuestionNumber();
+            String question = req.getParameter("question" + i);
+            String answer = req.getParameter("answer"+ i);
+            quiz.decreaseQuestionNumber();
+            questionService.saveQuestion(new Question(question, answer, questionType, lineNumber, quiz));
+        }
     }
 
 
