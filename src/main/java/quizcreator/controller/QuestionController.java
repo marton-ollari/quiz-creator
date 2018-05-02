@@ -30,7 +30,6 @@ public class QuestionController {
         Quiz quiz = quizService.getQuizById((long)session.getAttribute("quizId"));
         int questionNumber = Integer.parseInt(req.getParameter("number"));
         for (int i=1; i <= questionNumber; i++){
-            System.out.println(quiz.getQuestionNumber());
             int lineNumber = 51-quiz.getQuestionNumber();
             String question = req.getParameter("question" + i);
             String answer = req.getParameter("answer"+ i);

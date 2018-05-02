@@ -2,7 +2,7 @@ var questionform = {
     "QA" : createQuestionForms("simple", 1),
 
 
-    "CTP" : "<h4>Connect To Pictures - Coming soon</h4>",
+    "CTP" : createPictureQuestionForm("connect_to_pictures"),
 
 
     "AN" : createQuestionForms("anagram", 5),
@@ -11,7 +11,7 @@ var questionform = {
     "AC": createQuestionForms("association_circle", 10),
 
 
-    "SQ": "<h4>Speed Question - Coming soon</h4>"
+    "SQ": createQuestionForms("speed_questions", 10)
 };
 
 
@@ -21,6 +21,17 @@ function createQuestionForms(name, number) {
       form += "<div class='question-container'><h4>" +name+(i+1) +
           "</h4>Question:<span><input type=\"text\" name=\""+name + (i+1) + "question\"/></span>" +
           "Answer:<span><input type=\"text\" name=\""+name + (i+1) + "answer\"/></span></div>";
+    };
+    form += "</div>";
+    return form;
+}
+
+function createPictureQuestionForm(name) {
+    var form = "<div class='form-container'>";
+    for (var i=0; i<5; i++){
+        form += "<div class='question-container'><h4>" +name+(i+1) +
+            "</h4>Picture URL:<span><input type=\"text\" name=\""+name + (i+1) + "question\"/></span>" +
+            "Answer:<span><input type=\"text\" name=\""+name + (i+1) + "answer\"/></span></div>";
     };
     form += "</div>";
     return form;
@@ -41,5 +52,4 @@ function saveQuestions(name, number) {
         json["answer"+(i+1)] = answer;
     }
     $.post("/save-question", json);
-    //(questions(50)- number)
 }

@@ -52,6 +52,9 @@ function rightArrowEventListener() {
         case "AC":
             saveQuestions("association_circle", 10);
             break;
+        case "CTP":
+            saveQuestions("connect_to_pictures", 5);
+            break;
     }
     document.getElementsByClassName("question-form")[0].innerHTML = "Question saved";
 }
