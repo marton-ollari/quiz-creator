@@ -56,7 +56,6 @@ function rightArrowEventListener() {
             saveQuestions("connect_to_pictures", 5);
             break;
     }
-    document.getElementsByClassName("question-form")[0].innerHTML = "Question saved";
 }
 
 
