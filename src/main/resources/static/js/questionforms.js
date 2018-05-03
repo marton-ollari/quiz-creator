@@ -53,12 +53,13 @@ function saveQuestions(name, number) {
         var question = document.getElementsByName(name+(i+1)+"question")[0].value;
         var answer = document.getElementsByName(name+(i+1)+"answer")[0].value;
         if (question === "" || answer === ""){
-            document.getElementsByClassName("question-form")[0].innerHTML = "Fill all question and answer";
+            document.getElementsByClassName("message")[0].innerHTML = "Fill all question and answer";
             return;
         }
         json["question"+(i+1)]= question;
         json["answer"+(i+1)] = answer;
     }
     $.post("/save-question", json);
+    document.getElementsByClassName("message")[0].innerHTML = "";
     document.getElementsByClassName("question-form")[0].innerHTML = "Question saved";
 }
