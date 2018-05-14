@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import quizcreator.model.Question;
+import quizcreator.model.QuestionGroup;
 import quizcreator.model.QuestionType;
 import quizcreator.model.Quiz;
+import quizcreator.service.QuestionGroupService;
 import quizcreator.service.QuestionService;
 import quizcreator.service.QuizService;
 
@@ -23,18 +25,22 @@ public class QuestionController {
     @Autowired
     private QuizService quizService;
 
+    @Autowired
+    private QuestionGroupService questionGroupService;
+
     @ResponseBody
     @RequestMapping(value = "/save-question", method = RequestMethod.POST)
     public void saveQuestion(HttpSession session, HttpServletRequest req){
         QuestionType questionType = QuestionType.valueOf(req.getParameter("type").toUpperCase());
         Quiz quiz = quizService.getQuizById((long)session.getAttribute("quizId"));
         int questionNumber = Integer.parseInt(req.getParameter("number"));
+        quiz.decreaseQuestionNumber(questionNumber);
+        QuestionGroup questionGroup = new QuestionGroup(quiz, questionType, quiz.getQuestionGroupSize());
+        questionGroupService.saveQuestionGroup(questionGroup);
         for (int i=1; i <= questionNumber; i++){
-            int lineNumber = 51-quiz.getQuestionNumber();
             String question = req.getParameter("question" + i);
             String answer = req.getParameter("answer"+ i);
-            quiz.decreaseQuestionNumber();
-            questionService.saveQuestion(new Question(question, answer, questionType, lineNumber, quiz));
+            questionService.saveQuestion(new Question(question, answer, i, questionGroup));
         }
     }
 

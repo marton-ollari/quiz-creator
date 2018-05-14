@@ -6,5 +6,4 @@ import quizcreator.model.Quiz;
 import quizcreator.model.User;
 
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
-    Answer findByUserAndQuizAndLineNumber(User user, Quiz quiz, int lineNumber);
 }

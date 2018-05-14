@@ -3,6 +3,7 @@ package quizcreator.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import quizcreator.model.Answer;
+import quizcreator.model.Question;
 import quizcreator.model.Quiz;
 import quizcreator.model.User;
 import quizcreator.repository.AnswerRepository;
@@ -16,11 +17,8 @@ public class AnswerService {
         answerRepository.save(answer);
     }
 
-    public void saveAnswer(User user, Quiz quiz, int lineNumber, String answer){
-        answerRepository.save(new Answer(user, quiz, lineNumber, answer));
+    public void saveAnswer(User user, Question question, String answer){
+        answerRepository.save(new Answer(user, question, answer));
     }
 
-    public Answer getAnswer(User user, Quiz quiz, int lineNumber){
-        return answerRepository.findByUserAndQuizAndLineNumber(user, quiz, lineNumber);
-    }
 }

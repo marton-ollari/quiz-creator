@@ -60,6 +60,6 @@ function saveQuestions(name, number) {
         json["answer"+(i+1)] = answer;
     }
     $.post("/save-question", json);
-    document.getElementsByClassName("message")[0].innerHTML = "";
-    document.getElementsByClassName("question-form")[0].innerHTML = "Question saved";
+    document.getElementsByClassName("message")[0].innerHTML = "Question saved";
+    dropdownEventListeners()
 }

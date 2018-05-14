@@ -14,17 +14,14 @@ public class Answer {
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "quiz_id")
-    private Quiz quiz;
-
-    private int lineNumber;
+    @JoinColumn(name = "quiestion_id")
+    private Question question;
 
     private String answer;
 
-    public Answer(User user, Quiz quiz, int lineNumber, String answer) {
+    public Answer(User user, Question question, String answer) {
         this.user = user;
-        this.quiz = quiz;
-        this.lineNumber = lineNumber;
+        this.question = question;
         this.answer = answer;
     }
 }

@@ -20,10 +20,7 @@ public class Quiz {
     private User user;
 
     @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY)
-    private List<Question> questions;
-
-    @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY)
-    private List<Answer> answers;
+    private List<QuestionGroup> questionGroups;
 
     public Quiz() {
     }
@@ -41,7 +38,11 @@ public class Quiz {
         return questionNumber;
     }
 
-    public void decreaseQuestionNumber() {
-        this.questionNumber -= 1;
+    public void decreaseQuestionNumber(int number) {
+        this.questionNumber -= number;
     }
+
+    public int getQuestionGroupSize(){
+        return questionGroups.size();
+    };
 }

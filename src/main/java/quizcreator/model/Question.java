@@ -1,6 +1,7 @@
 package quizcreator.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="questions")
@@ -14,23 +15,22 @@ public class Question {
 
     private String answer;
 
-    @Enumerated(EnumType.STRING)
-    private QuestionType type;
-
     private int lineNumber;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "quiz_id")
-    private Quiz quiz;
+    @JoinColumn(name = "questionGroup_id")
+    private QuestionGroup questionGroup;
+
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
+    private List<Answer> answers;
 
     public Question() {
     }
 
-    public Question(String question, String answer, QuestionType type, int lineNumber, Quiz quiz) {
+    public Question(String question, String answer, int lineNumber, QuestionGroup questionGroup) {
         this.question = question;
         this.answer = answer;
-        this.type = type;
         this.lineNumber = lineNumber;
-        this.quiz = quiz;
+        this.questionGroup = questionGroup;
     }
 }
