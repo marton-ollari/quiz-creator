@@ -17,7 +17,7 @@ public class QuestionGroup {
     @Enumerated(EnumType.STRING)
     private QuestionType type;
 
-    @OneToMany(mappedBy = "questionGroup", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "questionGroup", fetch = FetchType.LAZY)
     private List<Question> questions;
 
     private int lineNumber;

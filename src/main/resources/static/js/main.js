@@ -25,7 +25,8 @@ function createQuizEventListener() {
                     "    <option value=\"CTP\">Connect to Pictures</option>" +
                     "    <option value=\"AN\">Anagram</option>" +
                     "    <option value=\"AC\">Association Circle</option>" +
-                    "</select>";
+                    "</select>" +
+                    "<h4>Question Group <span id=\"group_number\">1</span>/<span id=\"all_groups\">1</span></h4>";
                 $.post("/save-quiz", {quizname: quizName});
                 document.getElementById("list").addEventListener("click", dropdownEventListeners);
             }
@@ -33,29 +34,53 @@ function createQuizEventListener() {
 }
 
 function dropdownEventListeners() {
-    var e = document.getElementById("list");
-    document.getElementsByClassName("question-form")[0].innerHTML = questionform[e.options[e.selectedIndex].value] +
+    var dropdown = document.getElementById("list");
+    document.getElementsByClassName("question-form")[0].innerHTML = questionform[dropdown.options[dropdown.selectedIndex].value] +
             "<button id=\"left-arrow\" class = \"btn btn-warning \"> <i class=\"far fa-3x fa-caret-square-left\"></i> </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
             "<button id=\"right-arrow\" class = \"btn btn-warning \"> <i class=\"far fa-3x fa-caret-square-right\"></i> </button><br>";
     document.getElementById("right-arrow").addEventListener("click", rightArrowEventListener);
+    document.getElementById("left-arrow").addEventListener("click", leftArrowEventListener);
 }
 
 function rightArrowEventListener() {
-    var e = document.getElementById("list");
-    switch(e.options[e.selectedIndex].value) {
-        case "QA":
-            saveQuestions("simple", 1);
-            break;
-        case "AN":
-            saveQuestions("anagram", 5);
-            break;
-        case "AC":
-            saveQuestions("association_circle", 10);
-            break;
-        case "CTP":
-            saveQuestions("connect_to_pictures", 5);
-            break;
+    updateGroupNumber(1);
+    if(parseInt(document.getElementById("group_number").innerHTML) == parseInt(document.getElementById("all_groups").innerHTML)){
+        //TODO show dropdown
+        var dropdown = document.getElementById("list");
+        switch(dropdown.options[dropdown.selectedIndex].value) {
+            case "QA":
+                saveQuestions("simple", 1);
+                break;
+            case "AN":
+                saveQuestions("anagram", 5);
+                break;
+            case "AC":
+                saveQuestions("association_circle", 10);
+                break;
+            case "CTP":
+                saveQuestions("connect_to_pictures", 5);
+                break;
+        }
+    } else {
+        // TODO update questions
+        // TODO fill form with saved questions
+        getSavedQuestionGroup();
     }
 }
 
+
+function leftArrowEventListener() {
+    updateGroupNumber(-1);
+    // TODO fill form with saved questions
+    // TODO hide dropdown
+    getSavedQuestionGroup();
+}
+
+function updateGroupNumber(num) {
+    document.getElementById("group_number").innerHTML= parseInt(document.getElementById("group_number").innerHTML)+num;
+}
+
+function getSavedQuestionGroup() {
+
+}
 

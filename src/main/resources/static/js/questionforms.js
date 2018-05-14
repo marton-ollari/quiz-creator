@@ -61,5 +61,6 @@ function saveQuestions(name, number) {
     }
     $.post("/save-question", json);
     document.getElementsByClassName("message")[0].innerHTML = "Question saved";
+    document.getElementById("all_groups").innerHTML= parseInt(document.getElementById("all_groups").innerHTML)+1;
     dropdownEventListeners()
 }
