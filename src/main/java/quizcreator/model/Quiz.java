@@ -44,5 +44,5 @@ public class Quiz {
 
     public int getQuestionGroupSize(){
         return questionGroups.size();
-    };
+    }
 }

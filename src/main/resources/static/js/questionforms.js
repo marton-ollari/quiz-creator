@@ -14,6 +14,16 @@ var questionform = {
     "SQ": createQuestionForms("speed_questions", 10)
 };
 
+function createQuestionDropdown() {
+    document.getElementsByClassName("question-dropdown")[0].innerHTML = "<select id=\"list\" class=\"btn btn-warning \">\n" +
+        "    <option value=\"QA\">Question - Answer</option>" +
+        "    <option value=\"CTP\">Connect to Pictures</option>" +
+        "    <option value=\"AN\">Anagram</option>" +
+        "    <option value=\"AC\">Association Circle</option>" +
+        "</select>";
+        document.getElementById("list").addEventListener("click", dropdownEventListeners);
+}
+
 
 function createQuestionForms(name, number) {
     var form = "<table class=\"table table-bordered center\"><thead><tr>\n" +
@@ -62,5 +72,13 @@ function saveQuestions(name, number) {
     $.post("/save-question", json);
     document.getElementsByClassName("message")[0].innerHTML = "Question saved";
     document.getElementById("all_groups").innerHTML= parseInt(document.getElementById("all_groups").innerHTML)+1;
+    updateGroupNumber(1);
     dropdownEventListeners()
+}
+
+function getSavedQuestionGroup() {
+    var groupNumber = parseInt(document.getElementById("group_number").innerHTML);
+    $.getJSON("/group/"+groupNumber, function(questions) {
+        console.log(questions);
+    });
 }

@@ -31,4 +31,11 @@ public class QuestionGroup {
         this.lineNumber = lineNumber;
     }
 
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public QuestionType getType() {
+        return type;
+    }
 }

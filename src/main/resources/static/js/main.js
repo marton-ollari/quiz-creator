@@ -18,17 +18,12 @@ function addEventListeners() {
 
 function createQuizEventListener() {
         document.getElementsByClassName("save-quiz-button")[0].addEventListener("click", function () {
-            var quizName = document.getElementsByClassName("quiz-name")[0].value;
+            var quizName = document.getElementsByClassName("quiz-name-input")[0].value;
             if(document.getElementsByClassName("quiz-name")[0].value !== "") {
-                document.getElementsByClassName("question-dropdown")[0].innerHTML = "<h2>" + quizName + "</h2><select id=\"list\" class=\"btn btn-warning \">\n" +
-                    "    <option value=\"QA\">Question - Answer</option>" +
-                    "    <option value=\"CTP\">Connect to Pictures</option>" +
-                    "    <option value=\"AN\">Anagram</option>" +
-                    "    <option value=\"AC\">Association Circle</option>" +
-                    "</select>" +
-                    "<h4>Question Group <span id=\"group_number\">1</span>/<span id=\"all_groups\">1</span></h4>";
+                document.getElementsByClassName("quiz-name")[0].innerHTML = "<h4>" + quizName + "</h4>";
+                document.getElementsByClassName("group-numbers")[0].innerHTML = "<h4>Question Group <span id=\"group_number\">1</span>/<span id=\"all_groups\">1</span></h4>";
                 $.post("/save-quiz", {quizname: quizName});
-                document.getElementById("list").addEventListener("click", dropdownEventListeners);
+                createQuestionDropdown();
             }
         });
 }
@@ -38,14 +33,13 @@ function dropdownEventListeners() {
     document.getElementsByClassName("question-form")[0].innerHTML = questionform[dropdown.options[dropdown.selectedIndex].value] +
             "<button id=\"left-arrow\" class = \"btn btn-warning \"> <i class=\"far fa-3x fa-caret-square-left\"></i> </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
             "<button id=\"right-arrow\" class = \"btn btn-warning \"> <i class=\"far fa-3x fa-caret-square-right\"></i> </button><br>";
+    disableButton();
     document.getElementById("right-arrow").addEventListener("click", rightArrowEventListener);
     document.getElementById("left-arrow").addEventListener("click", leftArrowEventListener);
 }
 
 function rightArrowEventListener() {
-    updateGroupNumber(1);
-    if(parseInt(document.getElementById("group_number").innerHTML) == parseInt(document.getElementById("all_groups").innerHTML)){
-        //TODO show dropdown
+    if(document.getElementById("group_number").innerHTML == document.getElementById("all_groups").innerHTML){
         var dropdown = document.getElementById("list");
         switch(dropdown.options[dropdown.selectedIndex].value) {
             case "QA":
@@ -62,25 +56,37 @@ function rightArrowEventListener() {
                 break;
         }
     } else {
+        if (parseInt(document.getElementById("group_number").innerHTML)+1 == parseInt(document.getElementById("all_groups").innerHTML)){
+            createQuestionDropdown();
+        }  else {
+            getSavedQuestionGroup();
+        }
         // TODO update questions
-        // TODO fill form with saved questions
-        getSavedQuestionGroup();
+        updateGroupNumber(1);
+        dropdownEventListeners()
+        }
+}
+
+function leftArrowEventListener() {
+    if (document.getElementsByClassName("question-dropdown")[0].innerHTML != null){
+        document.getElementsByClassName("question-dropdown")[0].innerHTML = "";
     }
+    updateGroupNumber(-1);
+    document.getElementsByClassName("message")[0].innerHTML = "";
+    // TODO fill form with saved questions
+    disableButton();
+    getSavedQuestionGroup();
 }
 
 
-function leftArrowEventListener() {
-    updateGroupNumber(-1);
-    // TODO fill form with saved questions
-    // TODO hide dropdown
-    getSavedQuestionGroup();
+
+function disableButton() {
+    if (document.getElementById("group_number").innerHTML == "1"){
+        document.getElementById("left-arrow").disabled = true;
+    }
 }
 
 function updateGroupNumber(num) {
     document.getElementById("group_number").innerHTML= parseInt(document.getElementById("group_number").innerHTML)+num;
-}
-
-function getSavedQuestionGroup() {
-
 }
 

@@ -36,9 +36,10 @@
 </header>
 
 <br/>
+<div class="quiz-name w3-center"></div>
+<div class="group-numbers w3-center"></div>
 <br/>
 <div class="question-dropdown w3-center"></div>
-<br/>
 <br/>
 <div class="message w3-center"></div>
 <br/>
@@ -82,7 +83,7 @@
     <div class="modal-dialog">
         <div class="loginmodal-container">
             <h1>Name your quiz</h1><br/>
-                <input type="text" name="quiz-name" class="quiz-name" placeholder="Quiz name" th:required="required"/>
+                <input type="text" name="quiz-name-input" class="quiz-name-input" placeholder="Quiz name" th:required="required"/>
                 <input type="submit" name="login" class="login loginmodal-submit save-quiz-button" data-dismiss="modal" value="Create quiz"/>
         </div>
     </div>
