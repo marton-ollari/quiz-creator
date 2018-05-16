@@ -57,8 +57,8 @@ function rightArrowEventListener() {
             createQuestionDropdown();
             updateGroupNumber(1);
         }  else {
-            getSavedQuestionGroup();
             updateGroupNumber(1);
+            getSavedQuestionGroup();
 
         }
         createArrowButtons();
