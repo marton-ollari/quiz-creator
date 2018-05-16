@@ -21,7 +21,7 @@ function createQuestionDropdown() {
         "    <option value=\"AN\">Anagram</option>" +
         "    <option value=\"AC\">Association Circle</option>" +
         "</select>";
-        document.getElementById("list").addEventListener("click", dropdownEventListeners);
+    document.getElementById("list").addEventListener("click", dropdownEventListeners);
 }
 
 
@@ -73,12 +73,14 @@ function saveQuestions(name, number) {
     document.getElementsByClassName("message")[0].innerHTML = "Question saved";
     document.getElementById("all_groups").innerHTML= parseInt(document.getElementById("all_groups").innerHTML)+1;
     updateGroupNumber(1);
-    dropdownEventListeners()
+    dropdownEventListeners();
+    createArrowButtons();
 }
 
 function getSavedQuestionGroup() {
     var groupNumber = parseInt(document.getElementById("group_number").innerHTML);
     $.getJSON("/group/"+groupNumber, function(questions) {
-        console.log(questions);
+        console.log(questions)
     });
+
 }

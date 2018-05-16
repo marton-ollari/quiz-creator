@@ -17,6 +17,7 @@ import quizcreator.service.QuizService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -52,9 +53,14 @@ public class QuestionController {
         Gson gson = new Gson();
         Quiz quiz = quizService.getQuizById((long)session.getAttribute("quizId"));
         QuestionGroup questionGroup = questionGroupService.getQuestionsByGroup(quiz, id);
-        System.out.println(questionGroup.getQuestions());
-        System.out.println(questionGroup.getType());
-        return gson.toJson("success");
+        HashMap<String, String> questionData = new HashMap<>();
+        questionData.put("type", String.valueOf(questionGroup.getType()));
+        List<Question> questions = questionGroup.getQuestions();
+        for (int i=1; i <= questions.size(); i++){
+            questionData.put("question"+i, questions.get(i).getQuestion());
+            questionData.put("answer"+i, questions.get(i).getAnswer());
+        }
+        return gson.toJson(questionData);
     }
 
 

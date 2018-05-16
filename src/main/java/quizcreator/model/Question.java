@@ -33,4 +33,12 @@ public class Question {
         this.lineNumber = lineNumber;
         this.questionGroup = questionGroup;
     }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
 }
