@@ -25,7 +25,7 @@ function createQuizEventListener() {
                 $.post("/save-quiz", {quizname: quizName});
                 createQuestionDropdown();
                 createArrowButtons();
-                document.getElementsByClassName("question-form")[0].innerHTML = questionform["QA"];
+                document.getElementsByClassName("question-form")[0].innerHTML = questionform["SIMPLE"];
             }
         });
 }
@@ -39,17 +39,17 @@ function rightArrowEventListener() {
     if(document.getElementById("group_number").innerHTML == document.getElementById("all_groups").innerHTML){
         var dropdown = document.getElementById("list");
         switch(dropdown.options[dropdown.selectedIndex].value) {
-            case "QA":
-                saveQuestions("simple", 1);
+            case "SIMPLE":
+                saveQuestions("SIMPLE", 1);
                 break;
-            case "AN":
-                saveQuestions("anagram", 5);
+            case "ANAGRAM":
+                saveQuestions("ANAGRAM", 5);
                 break;
-            case "AC":
-                saveQuestions("association_circle", 10);
+            case "ASSOCIATION_CIRCLE":
+                saveQuestions("ASSOCIATION_CIRCLE", 10);
                 break;
-            case "CTP":
-                saveQuestions("connect_to_pictures", 5);
+            case "CONNECT_TO_PICTURES":
+                saveQuestions("CONNECT_TO_PICTURES", 5);
                 break;
         }
     } else {
@@ -85,9 +85,6 @@ function createArrowButtons() {
     if (document.getElementById("group_number").innerHTML == "1"){
         document.getElementById("left-arrow").disabled = true;
     }
-    // if (document.getElementsByClassName("question-form")[0].innerHTML == ""){
-    //     document.getElementById("right-arrow").disabled = true;
-    // }
     document.getElementById("right-arrow").addEventListener("click", rightArrowEventListener);
     document.getElementById("left-arrow").addEventListener("click", leftArrowEventListener);
 }

@@ -34,7 +34,7 @@ public class QuestionController {
     @ResponseBody
     @RequestMapping(value = "/save-question", method = RequestMethod.POST)
     public void saveQuestion(HttpSession session, HttpServletRequest req){
-        QuestionType questionType = QuestionType.valueOf(req.getParameter("type").toUpperCase());
+        QuestionType questionType = QuestionType.valueOf(req.getParameter("type"));
         Quiz quiz = quizService.getQuizById((long)session.getAttribute("quizId"));
         int questionNumber = Integer.parseInt(req.getParameter("number"));
         quiz.decreaseQuestionNumber(questionNumber);
@@ -56,9 +56,9 @@ public class QuestionController {
         HashMap<String, String> questionData = new HashMap<>();
         questionData.put("type", String.valueOf(questionGroup.getType()));
         List<Question> questions = questionGroup.getQuestions();
-        for (int i=1; i <= questions.size(); i++){
-            questionData.put("question"+i, questions.get(i).getQuestion());
-            questionData.put("answer"+i, questions.get(i).getAnswer());
+        for (int i=0; i < questions.size(); i++){
+            questionData.put("question"+(i+1), questions.get(i).getQuestion());
+            questionData.put("answer"+(i+1), questions.get(i).getAnswer());
         }
         return gson.toJson(questionData);
     }
