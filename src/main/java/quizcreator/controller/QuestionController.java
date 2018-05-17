@@ -48,19 +48,47 @@ public class QuestionController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/update-question", method = RequestMethod.POST)
+    public void updateQuestion(HttpSession session, HttpServletRequest req) {
+        Quiz quiz = quizService.getQuizById((long) session.getAttribute("quizId"));
+        QuestionGroup questionGroup = questionGroupService.getGroupByQuizAndLineNumber(quiz, Integer.parseInt(req.getParameter("groupNumber")));
+        List<Question> questions = questionGroup.getQuestions();
+        for (int i = 0; i < questions.size(); i++) {
+            Question question = questions.get(i);
+            if (!questions.get(i).getQuestion().equals(req.getParameter("question" + (i+1)))) {
+                question.setQuestion(req.getParameter("question" + (i+1)));
+            }
+            if (!questions.get(i).getAnswer().equals(req.getParameter("answer" + (i+1)))) {
+                question.setAnswer(req.getParameter("answer" + (i+1)));
+            }
+            questionService.saveQuestion(question);
+        }
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/group/{id}", method = RequestMethod.GET)
     public String getSavedQuestions(@PathVariable int id, HttpSession session){
         Gson gson = new Gson();
         Quiz quiz = quizService.getQuizById((long)session.getAttribute("quizId"));
-        QuestionGroup questionGroup = questionGroupService.getQuestionsByGroup(quiz, id);
+        QuestionGroup questionGroup = questionGroupService.getGroupByQuizAndLineNumber(quiz, id);
         HashMap<String, String> questionData = new HashMap<>();
         questionData.put("type", String.valueOf(questionGroup.getType()));
         List<Question> questions = questionGroup.getQuestions();
-        for (int i=0; i < questions.size(); i++){
-            questionData.put("question"+(i+1), questions.get(i).getQuestion());
-            questionData.put("answer"+(i+1), questions.get(i).getAnswer());
+        questionData.put("size", String.valueOf(questions.size()));
+        for (int i=1; i <= questions.size(); i++){
+            questionData.put("question"+i, questions.get(i-1).getQuestion());
+            questionData.put("answer"+i, questions.get(i-1).getAnswer());
         }
         return gson.toJson(questionData);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/group/{id}/type", method = RequestMethod.GET)
+    public String getQuestionGroupType(@PathVariable int id, HttpSession session){
+        Gson gson = new Gson();
+        Quiz quiz = quizService.getQuizById((long)session.getAttribute("quizId"));
+        QuestionGroup questionGroup = questionGroupService.getGroupByQuizAndLineNumber(quiz, id);
+        return gson.toJson(String.valueOf(questionGroup.getType()));
     }
 
 

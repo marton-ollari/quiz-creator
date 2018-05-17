@@ -19,7 +19,7 @@ public class QuestionGroupService {
         questionGroupRepository.save(questionGroup);
     }
 
-    public QuestionGroup getQuestionsByGroup(Quiz quiz, int lineNumber){
+    public QuestionGroup getGroupByQuizAndLineNumber(Quiz quiz, int lineNumber){
         return questionGroupRepository.getByQuizAndLineNumber(quiz, lineNumber);
     }
 }

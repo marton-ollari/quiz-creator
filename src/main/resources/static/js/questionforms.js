@@ -10,6 +10,18 @@ var questionform = {
     "SPEED_QUESTION": createQuestionForms(10)
 };
 
+var groupNumbers = {
+    "SIMPLE" : 1,
+
+    "CONNECT_TO_PICTURES" : 5,
+
+    "ANAGRAM" : 5,
+
+    "ASSOCIATION_CIRCLE": 10,
+
+    "SPEED_QUESTION": 10
+};
+
 function createQuestionDropdown() {
     document.getElementsByClassName("question-dropdown")[0].innerHTML = "<select id=\"list\" class=\"btn btn-warning \">\n" +
         "    <option value=\"SIMPLE\">Question - Answer</option>" +
@@ -65,6 +77,7 @@ function saveQuestions(name, number) {
         json["question"+i]= question;
         json["answer"+i] = answer;
     }
+
     $.post("/save-question", json);
     document.getElementsByClassName("message")[0].innerHTML = "Question saved";
     document.getElementById("all_groups").innerHTML= parseInt(document.getElementById("all_groups").innerHTML)+1;
@@ -75,9 +88,40 @@ function saveQuestions(name, number) {
 
 function getSavedQuestionGroup() {
     var groupNumber = parseInt(document.getElementById("group_number").innerHTML);
-    $.getJSON("/group/"+groupNumber, function(questions) {
-        console.log(questions);
-        console.log(questions['type']);
+    $.getJSON("/group/"+groupNumber, function(questionData) {
+        document.getElementsByClassName("question-form")[0].innerHTML = questionform[questionData["type"]];
+        for (var i = 1; i <= parseInt(questionData["size"]); i++){
+            document.getElementsByName("question"+i)[0].value = questionData["question"+i];
+            document.getElementsByName("answer"+i)[0].value = questionData["answer"+i];
+        }
     });
+}
 
+function updateQuestions(arrow) {
+    var groupNumber = parseInt(document.getElementById("group_number").innerHTML);
+    $.getJSON("/group/"+groupNumber+"/type", function(type) {
+        var json = {};
+        var number = groupNumbers[type];
+        json["type"] = type;
+        json["groupNumber"] = groupNumber;
+        for (var i=1; i<=number; i++){
+            var question = document.getElementsByName("question"+i)[0].value;
+            var answer = document.getElementsByName("answer"+i)[0].value;
+            if (question === "" || answer === ""){
+                document.getElementsByClassName("message")[0].innerHTML = "Fill all question and answer";
+                return;
+            }
+            json["question"+i]= question;
+            json["answer"+i] = answer;
+        }
+        $.post("/update-question", json);
+        document.getElementsByClassName("message")[0].innerHTML = "Question updated";
+
+    }).done(function () {
+        if (arrow === "right"){
+            rightUpdate();
+        } else if (arrow === "left"){
+            leftUpdate();
+        }
+    });
 }

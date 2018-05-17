@@ -38,43 +38,23 @@ function dropdownEventListeners() {
 function rightArrowEventListener() {
     if(document.getElementById("group_number").innerHTML == document.getElementById("all_groups").innerHTML){
         var dropdown = document.getElementById("list");
-        switch(dropdown.options[dropdown.selectedIndex].value) {
-            case "SIMPLE":
-                saveQuestions("SIMPLE", 1);
-                break;
-            case "ANAGRAM":
-                saveQuestions("ANAGRAM", 5);
-                break;
-            case "ASSOCIATION_CIRCLE":
-                saveQuestions("ASSOCIATION_CIRCLE", 10);
-                break;
-            case "CONNECT_TO_PICTURES":
-                saveQuestions("CONNECT_TO_PICTURES", 5);
-                break;
-        }
+        var option = dropdown.options[dropdown.selectedIndex].value;
+        saveQuestions(option, groupNumbers[option]);
     } else {
-        if (parseInt(document.getElementById("group_number").innerHTML)+1 == parseInt(document.getElementById("all_groups").innerHTML)){
-            createQuestionDropdown();
-            updateGroupNumber(1);
-        }  else {
-            updateGroupNumber(1);
-            getSavedQuestionGroup();
-
-        }
-        createArrowButtons();
-        // TODO update questions
-        }
+        updateQuestions("right");
+    }
 }
 
 function leftArrowEventListener() {
     if (document.getElementsByClassName("question-dropdown")[0].innerHTML != null){
         document.getElementsByClassName("question-dropdown")[0].innerHTML = "";
     }
-    updateGroupNumber(-1);
     document.getElementsByClassName("message")[0].innerHTML = "";
-    // TODO fill form with saved questions
-    getSavedQuestionGroup();
-    createArrowButtons();
+    if(document.getElementById("group_number").innerHTML != document.getElementById("all_groups").innerHTML){
+        updateQuestions("left");
+    } else {
+        leftUpdate();
+    }
 }
 
 
@@ -82,7 +62,7 @@ function leftArrowEventListener() {
 function createArrowButtons() {
     document.getElementsByClassName("arrow-buttons")[0].innerHTML = "<button id=\"left-arrow\" class = \"btn btn-warning \"> <i class=\"far fa-3x fa-caret-square-left\"></i> </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
         "<button id=\"right-arrow\" class = \"btn btn-warning \"> <i class=\"far fa-3x fa-caret-square-right\"></i> </button><br>";
-    if (document.getElementById("group_number").innerHTML == "1"){
+    if (document.getElementById("group_number").innerHTML === "1"){
         document.getElementById("left-arrow").disabled = true;
     }
     document.getElementById("right-arrow").addEventListener("click", rightArrowEventListener);
@@ -93,3 +73,20 @@ function updateGroupNumber(num) {
     document.getElementById("group_number").innerHTML= parseInt(document.getElementById("group_number").innerHTML)+num;
 }
 
+function leftUpdate() {
+    updateGroupNumber(-1);
+    getSavedQuestionGroup();
+    createArrowButtons();
+}
+
+function rightUpdate() {
+    if (parseInt(document.getElementById("group_number").innerHTML)+1 === parseInt(document.getElementById("all_groups").innerHTML)){
+        createQuestionDropdown();
+        document.getElementsByClassName("question-form")[0].innerHTML = questionform["SIMPLE"];
+        updateGroupNumber(1);
+    }  else {
+        updateGroupNumber(1);
+        getSavedQuestionGroup();
+    }
+    createArrowButtons();
+}
